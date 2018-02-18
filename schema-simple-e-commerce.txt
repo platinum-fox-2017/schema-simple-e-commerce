@@ -1,2 +1,110 @@
 URL:
 https://www.lucidchart.com/invitations/accept/aa8e5838-59a2-4dde-b2b8-554943c5a5a2
+
+
+CREATE TABLE user (
+user_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+first_name TEXT NOT NULL,
+last_name TEXT NOT NULL,
+dob DATE NOT NULL,
+email TEXT NOT NULL,
+password TEXT NOT NULL
+);
+
+INSERT INTO user (first_name, last_name, dob, email, password)
+VALUES ('Herby','Herado',1991-05-16, 'herby@company.com', '123456'),
+('Jon','Snow',1982-10-01,'jon@company.com','password'),
+('Sansa','Stark',1985-02-12,'sansa@company.com','apapapa'),
+('Peter','Baelish',1977-05-25,'peter@company.com','balingbalingbambu'),
+('Robert','Baratheon',1981-11-13,'robert@company.com','zordon')
+;
+
+CREATE TABLE admin (
+admin_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+store_name TEXT NOT NULL,
+address TEXT NOT NULL,
+city TEXT NOT NULL,
+zip INTEGER NOT NULL,
+country TEXT NOT NULL,
+user_id INTEGER NOT NULL,
+FOREIGN KEY (user_id) REFERENCES user(user_id)
+);
+
+INSERT INTO admin (store_name, address, city, zip, country, user_id)
+VALUES ('Lelanglang','Jl. Hang Tuah', 'Jakarta Selatan', 12310, 'Indonesia', 1),
+('BukaPedia','Jl. HanGang', 'Jakarta Utara', 13810, 'Indonesia', 2)
+;
+
+
+CREATE TABLE customer (
+customer_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+username TEXT NOT NULL,
+address TEXT NOT NULL,
+city TEXT NOT NULL,
+zip INTEGER NOT NULL,
+country TEXT NOT NULL,
+user_id INTEGER NOT NULL,
+FOREIGN KEY (user_id) REFERENCES user(user_id)
+);
+
+INSERT INTO customer (username, address, city, zip, country, user_id)
+VALUES ('hheradox','Jl. Hang Tuah', 'Jakarta Selatan', 12310, 'Indonesia', 1),
+('jontor','Jl. HanGang', 'Jakarta Utara', 13810, 'Indonesia', 2),
+('salsabila','Jl. Merdeka', 'Jakarta Selatan', 14310, 'Indonesia', 3),
+('peterparker','Jl. Jatibaru', 'Jakarta Barat', 12040, 'Indonesia', 4),
+('robotto','Jl. Petogogan', 'Jakarta Selatan', 15310, 'Indonesia', 5)
+;
+
+CREATE TABLE tag (
+tag_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+tag_name TEXT NOT NULL
+);
+
+INSERT INTO tag (tag_name)
+VALUES ('small'),
+('medium'),
+('large'),
+('cotton'),
+('leather'),
+('suede');
+
+CREATE TABLE product (
+product_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+product_name TEXT NOT NULL,
+product_type TEXT NOT NULL,
+price INTEGER NOT NULL,
+stock INTEGER NOT NULL,
+admin_id INTEGER NOT NULL,
+tag_id INTEGER NOT NULL,
+FOREIGN KEY (admin_id) REFERENCES admin(admin_id),
+FOREIGN KEY (tag_id) REFERENCES tag(tag_id)
+);
+
+INSERT INTO product (product_name, product_type, price, stock, admin_id, tag_id)
+VALUES ('Jaket', 'Luaran', 200000, 10, 1, 2),
+('Helm', 'Pelindung', 500000, 20, 1, 1),
+('Pantofel', 'Sepatu', 1000000, 5, 2, 6),
+('Kaos', 'Baju', 50000, 20, 2, 3);
+
+
+CREATE TABLE invoice (
+invoice INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+purchase_date DATE NOT NULL,
+ship_date DATE NOT NULL,
+address TEXT NOT NULL,
+city TEXT NOT NULL,
+zip INTEGER NOT NULL,
+country TEXT NOT NULL,
+quantity INTEGER NOT NULL,
+total_sum INTEGER NOT NULL,
+customer_id INTEGER NOT NULL,
+product_id INTEGER NOT NULL,
+FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
+FOREIGN KEY (product_id) REFERENCES product(product_id)
+);
+
+
+INSERT INTO invoice (purchase_date, ship_date, address, city, zip, country ,quantity, total_sum, customer_id, product_id)
+VALUES (2018-02-18, 2018-02-19, 'Jl. H. Nawi', 'Jakarta Selatan','Indonesia',15310, 1, 200000, 5, 1),
+(2018-02-18, 2018-02-19, 'Jl. H. Nawi', 'Jakarta Selatan','Indonesia',15310, 2, 100000, 5, 4),
+(2018-02-15, 2018-02-17, 'Jl. Buaran', 'Jakarta Timur','Indonesia',13310, 1, 1000000, 3, 3);
