@@ -1,0 +1,56 @@
+CREATE TABLE Customer (id integer NOT NULL PRIMARY KEY AUTOINCREMENT, username varchar, password varchar, email varchar);
+INSERT INTO Customer VALUES (1,'andrewbudikusuma', '1234password','andrewbudikusuma@gmail.com');
+INSERT INTO Customer VALUES (2,'johndoe','1234password','johndoe@gmail.com');
+INSERT INTO Customer VALUES (3,'KyloRen','1234password','kyloren@gmail.com');
+INSERT INTO Customer VALUES (4,'DoeJohn','1234password','DoeJohn@gmail.com');
+INSERT INTO Customer VALUES (5,'PabloEscobar','1234password','pablo@gmail.com');
+
+CREATE TABLE Orders (id integer NOT NULL PRIMARY KEY AUTOINCREMENT, customerId integer, FOREIGN KEY (customerId) REFERENCES Customer(id));
+INSERT INTO Orders VALUES (1, 1);
+
+
+CREATE TABLE OrderProduct (id integer NOT NULL PRIMARY KEY AUTOINCREMENT, orderId interger, productId integer, quantity integer, FOREIGN KEY (orderId) REFERENCES Orders(id), FOREIGN KEY (productId) REFERENCES Product(id));
+INSERT INTO OrderProduct VALUES (1,1,1,10);
+
+CREATE TABLE Product (id integer NOT NULL PRIMARY KEY AUTOINCREMENT, name VARCHAR, price integer);
+INSERT INTO Product VALUES (1, 'Macbook', 240000);
+INSERT INTO Product VALUES (2, 'Laptop ASUS', 24500);
+INSERT INTO Product VALUES (3, 'Laptop Acer', 2200);
+INSERT INTO Product VALUES (4, 'Mac mini', 245000);
+INSERT INTO Product VALUES (5, 'Laptop', 230000);
+
+CREATE TABLE Tag (id integer NOT NULL PRIMARY KEY AUTOINCREMENT, name varchar);
+INSERT INTO Tag VALUES (1, 'mahal');
+INSERT INTO Tag VALUES (2, 'murah');
+INSERT INTO Tag VALUES (3, 'murahan');
+INSERT INTO Tag VALUES (4, 'mahal banget');
+INSERT INTO Tag VALUES (5, 'gratis');
+
+CREATE TABLE ProductTag (id integer PRIMARY KEY AUTOINCREMENT, productId integer, tagId integer, FOREIGN KEY (productId) REFERENCES Product(id), FOREIGN KEY (tagId) REFERENCES Tag(id);
+INSERT INTO ProductTag VALUES (1, 1, 1);
+
+CREATE TABLE Admin (id integer NOT NULL PRIMARY KEY AUTOINCREMENT, username varchar, password varchar, email varchar);
+INSERT INTO Admin VALUES (1,'admin1', '1234password','admin1@gmail.com');
+INSERT INTO Admin VALUES (2,'admin2','1234password','admin2@gmail.com');
+INSERT INTO Admin VALUES (3,'admin3','1234password','admin3@gmail.com');
+INSERT INTO Admin VALUES (4,'admin4','1234password','admin4@gmail.com');
+INSERT INTO Admin VALUES (5,'admin5','1234password','admin5@gmail.com');
+
+CREATE TABLE Task (id integer NOT NULL PRIMARY KEY AUTOINCREMENT, name varchar);
+INSERT INTO Task VALUES (1, 'edit');
+INSERT INTO Task VALUES (2, 'input');
+INSERT INTO Task VALUES (3, 'delete');
+
+CREATE TABLE AdminTask (id integer NOT NULL PRIMARY KEY AUTOINCREMENT, adminId integer, taskId integer, FOREIGN KEY (adminId) REFERENCES Admin(id), FOREIGN KEY (taskId) REFERENCES Task(id));
+INSERT INTO AdminTask VALUES (1,1,1);
+
+CREATE TABLE ProductTask (id integer NOT NULL PRIMARY KEY AUTOINCREMENT, productId integer, taskId integer, FOREIGN KEY (productId) REFERENCES Product(id), FOREIGN KEY (taskId) REFERENCES Task(id));
+INSERT INTO ProductTask VALUES (1, 1, 1);
+INSERT INTO ProductTask VALUES (2, 1, 2);
+INSERT INTO ProductTask VALUES (3, 1, 3);
+
+
+
+
+
+
