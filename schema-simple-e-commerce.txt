@@ -1,0 +1,9 @@
+http://prntscr.com/igagcx
+
+CREATE TABLE pelanggan (id INTEGER PRIMARY KEY, full_name TEXT, email TEXT, password TEXT);
+CREATE TABLE admin (id INTEGER PRIMARY KEY, full_name TEXT, email TEXT, password TEXT);
+CREATE TABLE transaksi(id INTEGER PRIMARY KEY, no_transaksi TEXT UNIQUE, pelanggan_id INTEGER, FOREIGN KEY (pelanggan_id) REFERENCES pelanggan(id));
+CREATE TABLE transaksi_item(id INTEGER PRIMARY KEY, transaksi_id INTEGER, produk_id INTEGER, jumlah INTEGER, FOREIGN KEY (transaksi_id) REFERENCES transaksi(id), FOREIGN KEY (produk_id) REFERENCES produk(id));
+CREATE TABLE produk(id INTEGER PRIMARY KEY, name TEXT, price INTEGER);
+CREATE TABLE tag(id INTEGER PRIMARY KEY, name TEXT);
+CREATE TABLE produk_tag(id INTEGER PRIMARY KEY, produk_id INTEGER, tag_id INTEGER, FOREIGN KEY (produk_id) REFERENCES produk(id), FOREIGN KEY (tag_id) REFERENCES tag(id));
