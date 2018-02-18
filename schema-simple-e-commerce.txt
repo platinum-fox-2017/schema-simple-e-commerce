@@ -1,0 +1,88 @@
+Table image link :
+https://imgur.com/7QL0cMj
+
+CREATE TABLE User(
+	userID INTEGER PRIMARY KEY,
+	first_name VARCHAR(255),
+	last_name VARCHAR(255),
+	email VARCHAR(255),
+	phone VARCHAR(255),
+	roleID INTEGER
+);
+
+CREATE TABLE Role(
+	roleID INTEGER PRIMARY KEY,
+	role_name VARCHAR(255)
+);
+
+CREATE TABLE Orders(
+	orderID INTEGER PRIMARY KEY,
+	total INTEGER,
+	order_date DATE,
+	userID INTEGER
+);
+
+CREATE TABLE Order_Detail(
+	orderDetailID INTEGER PRIMARY KEY,
+	qunatities INT(5),
+	orderID INT,
+	productID INT
+);
+
+CREATE TABLE Product(
+	productID INTEGER PRIMARY KEY,
+	name VARCHAR(255),
+	stock INT(5),
+	price INT(15),
+	updaterID INTEGER
+);
+
+CREATE TABLE Tag(
+	tagID INTEGER PRIMARY KEY,
+	name VARCHAR(255)
+);
+
+CREATE TABLE Product_Tag(
+	prodcutTagID INTEGER PRIMARY KEY,
+	tagID INTEGER,
+	productID INTEGER
+);
+
+
+INSERT INTO User(userID, first_name,last_name, email, phone, roleID) VALUES
+(1, 'Ervan', 'Adetya', 'ervan@halo.com','087877971875', 1),
+(2, 'Tatang', 'Ratatang', 'ratatang@halo.com', '087877971875', 2),
+(3, 'Maman', 'Lamalam', 'lamalam@halo.com', '087877971875', 2),
+(4, 'Rita', 'Tari', 'tari@halo.com', '087877123875', 2),
+(5, 'Candy', 'Permen', 'permen@halo.com', '087879511875', 2);
+
+INSERT INTO Role (roleID, role_name) VALUES (1, 'admin');
+INSERT INTO Role (roleID, role_name) VALUES (2, 'customer');
+
+INSERT INTO Product (productID, name, stock, price, updaterID) VALUES
+(1, 'Yupi', 500, 6500, 1),
+(2, 'Milka', 124, 42000, 1);
+
+INSERT INTO Tag (tagID, name) VALUES (1, 'Kenyal');
+INSERT INTO Tag (tagID, name) VALUES (2, 'Manis');
+INSERT INTO Tag (tagID, name) VALUES (3, 'Enak');
+INSERT INTO Tag (tagID, name) VALUES (4, 'Permen');
+INSERT INTO Tag (tagID, name) VALUES (5, 'Coklat');
+
+INSERT INTO Product_Tag (prodcutTagID, tagID, productID) VALUES (1, 1, 1);
+INSERT INTO Product_Tag (prodcutTagID, tagID, productID) VALUES (2, 2, 1);
+INSERT INTO Product_Tag (prodcutTagID, tagID, productID) VALUES (3, 3, 1);
+INSERT INTO Product_Tag (prodcutTagID, tagID, productID) VALUES (4, 4, 1);
+INSERT INTO Product_Tag (prodcutTagID, tagID, productID) VALUES (5, 5, 2);
+INSERT INTO Product_Tag (prodcutTagID, tagID, productID) VALUES (6, 3, 2);
+INSERT INTO Product_Tag (prodcutTagID, tagID, productID) VALUES (7, 2, 2);
+
+
+INSERT INTO Orders (orderID, total, order_date, userID) VALUES 
+(1, 13000, '2018-2-17', 2),
+(2, 55000, '2018-2-17', 3);
+
+INSERT INTO Order_Detail (orderDetailID, qunatities, orderID, productID) VALUES
+(1, 2, 1, 1),
+(2, 2, 2, 1),
+(3, 1, 2, 2);
